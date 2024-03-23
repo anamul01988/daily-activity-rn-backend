@@ -20,7 +20,7 @@ application.get("/ping", (request: Request, response: Response) => {
 
 application.use("/users", userRoutes);
 application.use("/categories", categoryRoutes);
-// application.use("/tasks", taskRoutes)
+application.use("/tasks", taskRoutes);
 
 application.listen(PORT, () => {
   console.log("Server up and running");
