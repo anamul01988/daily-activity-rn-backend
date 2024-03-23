@@ -18,8 +18,8 @@ application.get("/ping", (request: Request, response: Response) => {
   response.send("Pong");
 });
 
-application.use("/user", userRoutes);
-// application.use("/categories", categoryRoutes)
+application.use("/users", userRoutes);
+application.use("/categories", categoryRoutes);
 // application.use("/tasks", taskRoutes)
 
 application.listen(PORT, () => {

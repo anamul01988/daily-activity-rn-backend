@@ -1,9 +1,9 @@
-import jwt from "jsonwebtoken"
-import { NextFunction, Request, Response } from "express"
-import User from "../models/user-model"
+import jwt from "jsonwebtoken";
+import { NextFunction, Request, Response } from "express";
+import User from "../models/user-model";
 
 export interface AuthRequest extends Request {
-  user: string
+  user: string;
 }
 
 export const authenticationMiddleware = async (
@@ -12,22 +12,22 @@ export const authenticationMiddleware = async (
   next: NextFunction
 ) => {
   try {
-    const { authorization } = request.headers
+    const { authorization } = request.headers;
     if (!authorization) {
       return response.status(401).json({
         error: "Authorization is required",
-      })
+      });
     }
-    const token = authorization
-    const { _id } = jwt.verify(token, "express")
-    const existingUser = await User.findOne({ _id })
+    const token = authorization;
+    const { _id } = jwt.verify(token, "express");
+    const existingUser = await User.findOne({ _id });
 
     if (existingUser) {
-      request.user = existingUser.id
+      request.user = existingUser.id;
     }
-    next()
+    next();
   } catch (error) {
-    console.log("error in authenticationMiddleware", error)
-    throw error
+    console.log("error in authenticationMiddleware", error);
+    throw error;
   }
-}
+};
