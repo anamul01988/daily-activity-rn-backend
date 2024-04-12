@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
-import cors from "cors";
+// import cors from "cors";
+var cors = require("cors");
 import connectToDatabase from "./db";
 import categoryRoutes from "./routes/category.routes";
 import taskRoutes from "./routes/task.routes";
@@ -8,7 +9,28 @@ import userRoutes from "./routes/user.routes";
 const application = express();
 
 application.use(express.json());
-application.use(cors());
+
+var bodyParser = require("body-parser");
+
+//enables cors
+application.use(
+  cors({
+    allowedHeaders: ["sessionId", "Content-Type"],
+    exposedHeaders: ["sessionId"],
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+  })
+);
+
+application.options(
+  "*",
+  cors({
+    origin: true,
+    optionsSuccessStatus: 200,
+    credentials: true,
+  })
+);
 
 const PORT = 1337;
 
