@@ -38,6 +38,7 @@ export const getCategoryById = async (
     const category = await Category.findOne({
       _id: id,
     });
+    console.log("category==============", category);
     return response.send(category);
   } catch (error) {
     response.send({ error: "Something went wrong" });
